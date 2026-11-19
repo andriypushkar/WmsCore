@@ -8,8 +8,8 @@ namespace Wms.Domain.Entities
     public class WarehouseSlot
     {
         public required string SlotCode { get; init; }
-        public double MaxWeightKg { get; set; }
-        public double MaxVolumeCm3 { get; set; }
+        public required double MaxWeightKg { get; init; }
+        public required double MaxVolumeCm3 { get; init; }
         public SlotStatus Status { get; private set; } = SlotStatus.Available;
 
         private readonly List<Product> _storedProducts = [];

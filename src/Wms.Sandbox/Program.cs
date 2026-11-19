@@ -2,16 +2,17 @@
 using Wms.Domain;
 using Wms.Domain.Entities;
 using Wms.Domain.Enums;
+using Wms.Domain.ValueObjects;
 
 // 1 Defining and initializing list of WarehouseSlots
-List<WarehouseSlot> WarehouseSlots = [
+List<WarehouseSlot> warehouseSlots = [
     new WarehouseSlot { SlotCode = "ALG-01", MaxWeightKg = 100, MaxVolumeCm3 = 1000 },
     new WarehouseSlot { SlotCode = "ALG-02", MaxWeightKg = 120, MaxVolumeCm3 = 1000 },
     new WarehouseSlot { SlotCode = "ALG-03", MaxWeightKg = 200, MaxVolumeCm3 = 1000 },
     new WarehouseSlot { SlotCode = "ALG-04", MaxWeightKg = 300, MaxVolumeCm3 = 1000 },
 ];
 
-List<Product> Products = [
+List<Product> products = [
     new Product { Sku = "T-001", Name = "Tile Type 1", WeightKg = 124, Size = new Dimensions { WidthCm = 10, HeightCm = 10, DepthCm = 10 } },
     new Product { Sku = "T-002", Name = "Tile Type 2", WeightKg = 30, Size = new Dimensions { WidthCm = 2, HeightCm = 2, DepthCm = 2 } },
     new Product { Sku = "T-003", Name = "Tile Type 3", WeightKg = 220, Size = new Dimensions { WidthCm = 3, HeightCm = 3, DepthCm = 3 } },
@@ -20,9 +21,9 @@ List<Product> Products = [
 ];
 
 // Let's find all available slots for all products (assume all slots are empty)
-foreach (Product product in Products)
+foreach (Product product in products)
 {
-    var AvailSlots = WarehouseSlots
+    var availSlots = warehouseSlots
         .Where(s => s.CanFit(product))
         .Select(s => new
         {
@@ -33,14 +34,11 @@ foreach (Product product in Products)
         .ToList();
 
     System.Console.WriteLine($"For Product: [{product.Sku} {product.Name}], WeightKg: [{product.WeightKg}] are available next Slots: " );
-    foreach (var item in AvailSlots)
+    foreach (var item in availSlots)
     {
         Console.WriteLine($"SlotCode = [{item.Slot.SlotCode}], MaxWeightKg = [{item.Slot.MaxWeightKg}]"
-            + " ,RemainigWeightKg = [{item.RemainingWeightKg}]");
+            + $" ,RemainigWeightKg = [{item.RemainingWeightKg}]");
     }
 
 }
-
-
-
 

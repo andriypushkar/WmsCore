@@ -24,5 +24,26 @@ namespace Wms.Domain.Entities
                 _ => false
             };
 
+        public bool TryPlaceProduct(Product product)
+        {
+            ArgumentNullException.ThrowIfNull(product);
+
+            if (!CanFit(product))
+            {
+                return false;
+            }
+
+            _storedProducts.Add(product);
+
+            if ((CurrentWeightKg >= MaxWeightKg) 
+                || (CurrentVolumeCm3 >= MaxVolumeCm3)
+                )
+            {
+                Status = SlotStatus.Occupied;
+            };
+
+            return true;
+        }
+
     }
 }

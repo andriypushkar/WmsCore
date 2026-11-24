@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/src/">
+    <Project Path="src/Wms.Application/Wms.Application.csproj" />
     <Project Path="src/Wms.Domain/Wms.Domain.csproj" />
     <Project Path="src/Wms.Sandbox/Wms.Sandbox.csproj" />
   </Folder>

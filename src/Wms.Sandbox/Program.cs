@@ -80,11 +80,11 @@ async Task Module2Tests()
 
         for (var i = 0; i < products.Count; i++)
         {
-            Console.WriteLine($"Good #{i} placement result = {results[i]}");
+            Console.WriteLine($"Placement #{i} result = {results[i].Message}");
         }
 
     }
-    catch (OperationCanceledException ex)
+    catch (OperationCanceledException)
     {
         Console.WriteLine("Operation was canceled or timed out.");
     }

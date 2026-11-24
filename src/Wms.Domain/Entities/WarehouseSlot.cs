@@ -35,12 +35,14 @@ namespace Wms.Domain.Entities
 
             _storedProducts.Add(product);
 
-            if ((CurrentWeightKg >= MaxWeightKg) 
-                || (CurrentVolumeCm3 >= MaxVolumeCm3)
+            const double Tolerance = 1e-9;
+            
+            if ((CurrentWeightKg >= MaxWeightKg - Tolerance) 
+                || (CurrentVolumeCm3 >= MaxVolumeCm3 - Tolerance)
                 )
             {
                 Status = SlotStatus.Occupied;
-            };
+            }
 
             return true;
         }

@@ -1,7 +1,7 @@
-﻿
+﻿using Wms.Application.Models;
 using Wms.Domain.Entities;
 
-namespace Wms.Application.Models
+namespace Wms.Application.Interfaces
 {
     public interface IInventoryService
     {

@@ -1,4 +1,5 @@
-﻿using Wms.Application.Models;
+﻿using Wms.Application.Interfaces;
+using Wms.Application.Models;
 using Wms.Domain.Entities;
 
 namespace Wms.Application.Services
@@ -14,15 +15,18 @@ namespace Wms.Application.Services
             // Throws OperationCanceledException immediately if cancelled before start
             ct.ThrowIfCancellationRequested();
 
+            ArgumentNullException.ThrowIfNull(slot);
+            ArgumentNullException.ThrowIfNull(product);
+
             await _slotLock.WaitAsync(ct);
             try
             {
                 await Task.Delay(100, ct);
-                var succes = slot.TryPlaceProduct(product);
+                var success = slot.TryPlaceProduct(product);
 
-                return new PlacementResult(succes, 
-                    $"{product.Sku} {product.Name} " 
-                    + (succes ? " successfully placed" : " can not be placed"));
+                return new PlacementResult(success, 
+                    $"{product.Sku} {product.Name}" 
+                    + (success ? " successfully placed" : " cannot be placed"));
 
             }
             finally 
